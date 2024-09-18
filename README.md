@@ -20,6 +20,8 @@
 - [14. Manutenção e instalação](#14-manutenção-e-instalação)
 - [15. Glossário](#15-glossário)
 - [16. Script SQL](#16-script-sql)
+  - [16.1 Comandos CREATE Table](#161-comandos-create-table)
+  - [16.2 Comandos INSERT gerando dados fictícios](#162-comandos-insert-gerando-dados-fictícios)
 
 
 # 1. Introdução
@@ -172,3 +174,7 @@ erDiagram
 # 15. Glossário
 
 # 16. Script SQL
+
+## 16.1 Comandos CREATE Table 
+
+## 16.2 Comandos INSERT gerando dados fictícios
