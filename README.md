@@ -4,7 +4,7 @@
 
 - [natan\_benites](#natan_benites)
 - [1. Introdução](#1-introdução)
-- [2. Problema e descrição do negócio](#2-problema-e-descrição-do-negócio)
+- [2. Descrição do negócio](#2-descrição-do-negócio)
 - [3. Visão geral do sistema](#3-visão-geral-do-sistema)
 - [4. Diagrama ER](#4-diagrama-er)
 - [5. Diagrama de classe](#5-diagrama-de-classe)
@@ -26,7 +26,7 @@
 
     O projeto de a seguir apresenta um sistema desenvolvidor para uma petshop. A empresa é considerada micro e iniciou as atividades recentemente. Ao possuir serviços exclusivos, os sistemas presentes no mercado não se enquadram, desta forma, os proprietários decidiram desenvolver uma solução própria.
 
-# 2. Problema e descrição do negócio
+# 2. Descrição do negócio
 
 Descrição do cenário onde o sistema deverá funcionar:
 
@@ -57,6 +57,96 @@ Descrição do cenário onde o sistema deverá funcionar:
 
 # 4. Diagrama ER
 
+```mermaid
+
+erDiagram
+    CLIENTE {
+        int id_cliente PK
+        string nome
+        string telefone
+        string endereco
+        string pagamento_permuta
+    }
+
+   ANIMAL {
+        int id_animal PK
+        string nome
+        string tipo
+        string raca
+        string habitos
+        string rfid
+    }
+    
+    VETERINARIO {
+        int id_veterinario PK
+        string nome
+        string especialidade
+        string telefone
+    }
+    
+    ATENDENTE {
+        int id_atendente PK
+        string nome
+    }
+    
+    RECEITA {
+        int id_receita PK
+        string descricao
+        date data
+    }
+    
+    FICHA {
+        int id_ficha PK
+        string observacoes
+    }
+    
+    PRONTUARIO {
+        int id_prontuario PK
+        int id_animal FK
+        int id_ficha FK
+    }
+
+    VISITA {
+        int id_visita PK
+        date data
+        int id_animal FK
+        int id_veterinario FK
+        int id_ficha FK
+        int id_receita FK
+    }
+
+    AGENDA {
+        int id_agenda PK
+        date data
+        int id_veterinario FK
+        int id_animal FK
+    }
+    
+    PRODUTO {
+        int id_produto PK
+        string nome
+        float preco
+    }
+    
+    SERVICO {
+        int id_servico PK
+        string descricao
+        float preco
+    }
+    CLIENTE ||--o{ ANIMAL : "possui"
+    ANIMAL ||--o{ VETERINARIO : "é atendido por"
+    VETERINARIO ||--o{ VISITA : "realiza"
+    CLIENTE ||--o{ VISITA : "marca"
+    ANIMAL ||--o{ VISITA : "participa"
+    VETERINARIO ||--o{ AGENDA : "tem"
+    ANIMAL ||--o{ AGENDA : "é agendado para"
+    VISITA ||--o{ RECEITA : "gera"
+    VISITA ||--o{ FICHA : "gera"
+    FICHA ||--o{ PRONTUARIO : "é parte de"
+    CLIENTE ||--o{ PRODUTO : "compra"
+    CLIENTE ||--o{ SERVICO : "solicita"
+    CLIENTE ||--o{ ATENDENTE : "é atendido por"
+```
 # 5. Diagrama de classe
 
 # 6. Casos de uso
