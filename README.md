@@ -151,6 +151,113 @@ erDiagram
 ```
 # 5. Diagrama de classe
 
+```mermaid
+
+classDiagram
+    class Cliente {
+        +int id
+        +String nome
+        +String telefone
+        +String endereco
+        +boolean pagamentoPermuta
+        +registrarAnimal(Animal animal)
+        +comprarProduto(Produto produto)
+        +solicitarServico(Servico servico)
+        +agendarAtendimento(Animal animal, Veterinario vet)
+    }
+
+    class Animal {
+        +int id
+        +String nome
+        +String tipo (gato/cachorro)
+        +String raca
+        +String habitos
+        +String rfid
+        +String tipoRacao
+        +receberAtendimento()
+        +adicionarFicha(Ficha ficha)
+        +gerarProntuario()
+    }
+
+    class Veterinario {
+        +int id
+        +String nome
+        +String especialidade
+        +String telefone
+        +entrevistarCliente(Cliente cliente, Animal animal)
+        +examinarAnimal(Animal animal)
+        +registrarReceita(Receita receita)
+    }
+
+    class Atendente {
+        +int id
+        +String nome
+        +verificarAgenda(Veterinario vet)
+        +colocarNaFila(Cliente cliente, Animal animal)
+        +levarParaVeterinario(Cliente cliente, Animal animal, Veterinario vet)
+    }
+
+    class Receita {
+        +int id
+        +String descricao
+        +Date data
+    }
+
+    class Ficha {
+        +int id
+        +String observacoes
+    }
+
+    class Prontuario {
+        +int id
+        +Animal animal
+        +Ficha ficha
+        +gerarReceita()
+    }
+
+    class Visita {
+        +int id
+        +Date data
+        +Animal animal
+        +Veterinario veterinario
+        +Ficha ficha
+        +Receita receita
+    }
+
+    class Agenda {
+        +int id
+        +Date data
+        +Veterinario veterinario
+        +Animal animal
+    }
+
+    class Produto {
+        +int id
+        +String nome
+        +float preco
+    }
+
+    class Servico {
+        +int id
+        +String descricao
+        +float preco
+    }
+
+    Cliente "1" --o "*" Animal : "possui"
+    Animal "1" --o "*" Veterinario : "é atendido por"
+    Veterinario "1" --o "*" Visita : "realiza"
+    Cliente "1" --o "*" Visita : "marca"
+    Animal "1" --o "*" Visita : "participa"
+    Veterinario "1" --o "*" Agenda : "tem"
+    Animal "1" --o "*" Agenda : "é agendado para"
+    Visita "1" --o "1" Receita : "gera"
+    Visita "1" --o "1" Ficha : "gera"
+    Ficha "1" --o "1" Prontuario : "é parte de"
+    Cliente "1" --o "*" Produto : "compra"
+    Cliente "1" --o "*" Servico : "solicita"
+    Cliente "1" --o "1" Atendente : "é atendido por"
+```
+
 # 6. Casos de uso
 
 ## 6.1. Histórias de usuário
