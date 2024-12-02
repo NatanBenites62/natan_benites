@@ -22,8 +22,32 @@
 - [10. Diagrama e navegação de telas](#10-diagrama-e-navegação-de-telas)
 - [11. Pilha tecnológica](#11-pilha-tecnológica)
 - [12. Requisitos de sistema](#12-requisitos-de-sistema)
+  - [12.1 Requisitos Cliente](#121-requisitos-cliente)
+      - [1: Acesso à internet](#1-acesso-à-internet)
+      - [2: Navegador](#2-navegador)
+      - [3: Sistema Operacional](#3-sistema-operacional)
+      - [4: Possuir um Computador ou dispositivo Mobile](#4-possuir-um-computador-ou-dispositivo-mobile)
+  - [12.2 Requisitos Servidor](#122-requisitos-servidor)
+      - [1: Servidor de Banco](#1-servidor-de-banco)
+      - [2: Servidor Web](#2-servidor-web)
+      - [3: Aplicação do Banco de Dados](#3-aplicação-do-banco-de-dados)
+      - [4: Máquina suporte](#4-máquina-suporte)
 - [13. Considerações sobre segurança](#13-considerações-sobre-segurança)
+  - [13.1 Lado Cliente](#131-lado-cliente)
+      - [1: Regras de senha (Captcha; Quantidade minima de caracteres; Caracteres especiais e etc)](#1-regras-de-senha-captcha-quantidade-minima-de-caracteres-caracteres-especiais-e-etc)
+      - [2: Autenticação de dois fatores](#2-autenticação-de-dois-fatores)
+      - [3: Recuperar senha com email](#3-recuperar-senha-com-email)
+      - [4: Código direto ao email](#4-código-direto-ao-email)
+      - [5: Anti-vírus](#5-anti-vírus)
+  - [13.2 Lado Servidor](#132-lado-servidor)
+      - [1: Politica de backup de aplicação e bancos](#1-politica-de-backup-de-aplicação-e-bancos)
+      - [2: Full Backup mensal](#2-full-backup-mensal)
+      - [3: Backup a cada 15 dias](#3-backup-a-cada-15-dias)
+      - [4: Admin do sistema não acessa aos dados do usuário](#4-admin-do-sistema-não-acessa-aos-dados-do-usuário)
 - [14. Manutenção e instalação](#14-manutenção-e-instalação)
+  - [14.1 Instalação direto ao servidor](#141-instalação-direto-ao-servidor)
+  - [14.2 Manutenção](#142-manutenção)
+  - [14.3 Novas Funcionalidades](#143-novas-funcionalidades)
 - [15. Glossário](#15-glossário)
 - [16. Script SQL](#16-script-sql)
   - [16.1 Comandos CREATE Table](#161-comandos-create-table)
@@ -62,6 +86,8 @@ Descrição do cenário onde o sistema deverá funcionar:
 22.  Receita ganha com cada cliente
 
 # 3. Visão geral do sistema
+
+Sistema através da visão geral do usuário
 
 # 4. Diagrama ER
 
@@ -375,9 +401,42 @@ graph TB
 
 # 12. Requisitos de sistema
 
+## 12.1 Requisitos Cliente
+#### 1: Acesso à internet
+#### 2: Navegador
+#### 3: Sistema Operacional
+#### 4: Possuir um Computador ou dispositivo Mobile
+
+
+## 12.2 Requisitos Servidor
+#### 1: Servidor de Banco
+#### 2: Servidor Web
+#### 3: Aplicação do Banco de Dados
+#### 4: Máquina suporte
+
+
 # 13. Considerações sobre segurança
 
+## 13.1 Lado Cliente
+#### 1: Regras de senha (Captcha; Quantidade minima de caracteres; Caracteres especiais e etc)
+#### 2: Autenticação de dois fatores
+#### 3: Recuperar senha com email
+#### 4: Código direto ao email
+#### 5: Anti-vírus
+
+## 13.2 Lado Servidor
+#### 1: Politica de backup de aplicação e bancos
+#### 2: Full Backup mensal
+#### 3: Backup a cada 15 dias
+#### 4: Admin do sistema não acessa aos dados do usuário
+
 # 14. Manutenção e instalação
+
+## 14.1 Instalação direto ao servidor
+## 14.2 Manutenção
+Manter sempre ativo e funcionando, não sendo necessário acrescentar nada novo.
+## 14.3 Novas Funcionalidades
+Formalização do pedido; Cliente não dá sugestões a par da "beleza" da tela; Decidir se é viável economicamente e tecnologicamente 
 
 # 15. Glossário
 
@@ -385,4 +444,188 @@ graph TB
 
 ## 16.1 Comandos CREATE Table 
 
+CREATE DATABASE ClinicaVeterinaria;
+USE ClinicaVeterinaria;
+
+-- Tabela de Clientes
+CREATE TABLE Clientes (
+    ClienteID INT AUTO_INCREMENT PRIMARY KEY,
+    Nome VARCHAR(100) NOT NULL,
+    Telefone VARCHAR(15) NOT NULL,
+    Email VARCHAR(100),
+    Endereco VARCHAR(255)
+);
+
+-- Tabela de Animais
+CREATE TABLE Animais (
+    AnimalID INT AUTO_INCREMENT PRIMARY KEY,
+    Nome VARCHAR(100) NOT NULL,
+    Especie ENUM('Cachorro', 'Gato') NOT NULL,
+    Raca VARCHAR(100),
+    Idade INT,
+    Habitos TEXT,
+    TipoRacao VARCHAR(100),
+    RFID VARCHAR(50) UNIQUE,
+    ClienteID INT,
+    FOREIGN KEY (ClienteID) REFERENCES Clientes(ClienteID)
+);
+
+-- Tabela de Veterinários
+CREATE TABLE Veterinarios (
+    VeterinarioID INT AUTO_INCREMENT PRIMARY KEY,
+    Nome VARCHAR(100) NOT NULL,
+    Especialidade VARCHAR(100)
+);
+
+-- Tabela de Agendas
+CREATE TABLE Agendas (
+    AgendaID INT AUTO_INCREMENT PRIMARY KEY,
+    Data DATE NOT NULL,
+    Horario TIME NOT NULL,
+    AnimalID INT,
+    VeterinarioID INT,
+    FOREIGN KEY (AnimalID) REFERENCES Animais(AnimalID),
+    FOREIGN KEY (VeterinarioID) REFERENCES Veterinarios(VeterinarioID)
+);
+
+-- Tabela de Atendimentos
+CREATE TABLE Atendimentos (
+    AtendimentoID INT AUTO_INCREMENT PRIMARY KEY,
+    Data DATE NOT NULL,
+    Horario TIME NOT NULL,
+    AnimalID INT,
+    VeterinarioID INT,
+    Descricao TEXT,
+    ReceitaGerada DECIMAL(10, 2),
+    FOREIGN KEY (AnimalID) REFERENCES Animais(AnimalID),
+    FOREIGN KEY (VeterinarioID) REFERENCES Veterinarios(VeterinarioID)
+);
+
+-- Tabela de Prontuários
+CREATE TABLE Prontuarios (
+    ProntuarioID INT AUTO_INCREMENT PRIMARY KEY,
+    AnimalID INT,
+    VeterinarioID INT,
+    Data DATE NOT NULL,
+    Observacoes TEXT,
+    Receita TEXT,
+    FOREIGN KEY (AnimalID) REFERENCES Animais(AnimalID),
+    FOREIGN KEY (VeterinarioID) REFERENCES Veterinarios(VeterinarioID)
+);
+
+-- Tabela de Histórico de Visitas
+CREATE TABLE HistoricoVisitas (
+    HistoricoID INT AUTO_INCREMENT PRIMARY KEY,
+    AnimalID INT,
+    Data DATE NOT NULL,
+    Descricao TEXT,
+    FOREIGN KEY (AnimalID) REFERENCES Animais(AnimalID)
+);
+
+-- Tabela de Produtos (para roupas e brinquedos)
+CREATE TABLE Produtos (
+    ProdutoID INT AUTO_INCREMENT PRIMARY KEY,
+    Nome VARCHAR(100) NOT NULL,
+    Categoria ENUM('Roupa', 'Brinquedo') NOT NULL,
+    Preco DECIMAL(10, 2) NOT NULL,
+    Estoque INT NOT NULL
+);
+
+-- Tabela de Banho e Tosa
+CREATE TABLE BanhoTosa (
+    BanhoTosaID INT AUTO_INCREMENT PRIMARY KEY,
+    AnimalID INT,
+    Data DATE NOT NULL,
+    Servico ENUM('Banho', 'Tosa', 'Banho e Tosa') NOT NULL,
+    Preco DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (AnimalID) REFERENCES Animais(AnimalID)
+);
+
+-- Tabela de Compras de Produtos
+CREATE TABLE Compras (
+    CompraID INT AUTO_INCREMENT PRIMARY KEY,
+    ClienteID INT,
+    ProdutoID INT,
+    Quantidade INT NOT NULL,
+    Data DATE NOT NULL,
+    Total DECIMAL(10, 2),
+    FOREIGN KEY (ClienteID) REFERENCES Clientes(ClienteID),
+    FOREIGN KEY (ProdutoID) REFERENCES Produtos(ProdutoID)
+);
+
+-- Tabela de Receita Geral
+CREATE TABLE ReceitaGeral (
+    ReceitaID INT AUTO_INCREMENT PRIMARY KEY,
+    ClienteID INT,
+    Data DATE NOT NULL,
+    TotalReceita DECIMAL(10, 2),
+    FOREIGN KEY (ClienteID) REFERENCES Clientes(ClienteID)
+);
+
+
 ## 16.2 Comandos INSERT gerando dados fictícios
+
+-- Inserindo clientes
+INSERT INTO Clientes (Nome, Telefone, Email, Endereco) VALUES
+('João Silva', '11999998888', 'joao@gmail.com', 'Rua das Flores, 123'),
+('Maria Oliveira', '21988887777', 'maria@gmail.com', 'Avenida Central, 456'),
+('Pedro Santos', '31977776666', 'pedro@gmail.com', 'Praça da Paz, 789');
+
+-- Inserindo animais
+INSERT INTO Animais (Nome, Especie, Raca, Idade, Habitos, TipoRacao, RFID, ClienteID) VALUES
+('Max', 'Cachorro', 'Labrador', 5, 'Adora correr e brincar', 'Ração Premium', 'RFID12345', 1),
+('Bella', 'Gato', 'Siamês', 3, 'Gosta de subir em móveis', 'Ração Gourmet', 'RFID67890', 2),
+('Rex', 'Cachorro', 'Bulldog', 4, 'Dorme muito e late pouco', 'Ração Standard', 'RFID54321', 3);
+
+-- Inserindo veterinários
+INSERT INTO Veterinarios (Nome, Especialidade) VALUES
+('Dr. Carlos Mendes', 'Clínico Geral'),
+('Dra. Ana Paula', 'Dermatologia Animal'),
+('Dr. Rafael Souza', 'Ortopedia Animal');
+
+-- Inserindo agenda
+INSERT INTO Agendas (Data, Horario, AnimalID, VeterinarioID) VALUES
+('2024-12-02', '10:00:00', 1, 1),
+('2024-12-02', '11:00:00', 2, 2),
+('2024-12-02', '14:00:00', 3, 3);
+
+-- Inserindo atendimentos
+INSERT INTO Atendimentos (Data, Horario, AnimalID, VeterinarioID, Descricao, ReceitaGerada) VALUES
+('2024-12-02', '10:00:00', 1, 1, 'Exame de rotina e atualização de vacinas', 150.00),
+('2024-12-02', '11:00:00', 2, 2, 'Tratamento para dermatite', 200.00),
+('2024-12-02', '14:00:00', 3, 3, 'Consulta ortopédica devido a mancar', 250.00);
+
+-- Inserindo prontuários
+INSERT INTO Prontuarios (AnimalID, VeterinarioID, Data, Observacoes, Receita) VALUES
+(1, 1, '2024-12-02', 'Animal saudável, vacinas atualizadas.', NULL),
+(2, 2, '2024-12-02', 'Dermatite tratada, recomendar troca de ração.', 'Pomada dermatológica X'),
+(3, 3, '2024-12-02', 'Problema articular identificado, iniciar fisioterapia.', 'Suplemento Articular Y');
+
+-- Inserindo histórico de visitas
+INSERT INTO HistoricoVisitas (AnimalID, Data, Descricao) VALUES
+(1, '2024-12-02', 'Consulta de rotina com vacinas.'),
+(2, '2024-12-02', 'Tratamento de dermatite.'),
+(3, '2024-12-02', 'Consulta ortopédica.');
+
+-- Inserindo produtos
+INSERT INTO Produtos (Nome, Categoria, Preco, Estoque) VALUES
+('Camiseta para Cachorro', 'Roupa', 50.00, 20),
+('Bolinha de Borracha', 'Brinquedo', 30.00, 50),
+('Arranhador para Gatos', 'Brinquedo', 80.00, 15);
+
+-- Inserindo banho e tosa
+INSERT INTO BanhoTosa (AnimalID, Data, Servico, Preco) VALUES
+(1, '2024-12-02', 'Banho e Tosa', 100.00),
+(2, '2024-12-02', 'Banho', 50.00);
+
+-- Inserindo compras
+INSERT INTO Compras (ClienteID, ProdutoID, Quantidade, Data, Total) VALUES
+(1, 1, 2, '2024-12-02', 100.00),
+(2, 2, 1, '2024-12-02', 30.00),
+(3, 3, 1, '2024-12-02', 80.00);
+
+-- Inserindo receita geral
+INSERT INTO ReceitaGeral (ClienteID, Data, TotalReceita) VALUES
+(1, '2024-12-02', 350.00),
+(2, '2024-12-02', 280.00),
+(3, '2024-12-02', 330.00);
