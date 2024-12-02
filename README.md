@@ -270,7 +270,67 @@ classDiagram
 
 # 10. Diagrama e navegação de telas
 
+```mermaid
+graph TD
+    Login[Login] -->|Acesso Válido| Menu[Menu Principal]
+    Login -->|Acesso Inválido| Erro[Mensagem de Erro]
+    
+    Menu --> Cadastro[Cadastro de Cliente e Animal]
+    Menu --> Agendamento[Agendamento]
+    Menu --> Atendimento[Atendimento]
+    Menu --> Comercio[Comércio]
+    Menu --> BanhoETosa[Banho e Tosa]
+    Menu --> Historico[Histórico de Visitas]
+
+    Cadastro --> CadastroCliente[Cadastro de Cliente]
+    Cadastro --> CadastroAnimal[Cadastro de Animal]
+
+    Agendamento --> AgendarConsulta[Agendar Consulta]
+    Agendamento --> FilaEspera[Fila de Espera]
+
+    Atendimento --> Entrevista[Entrevista com Dono]
+    Atendimento --> Exame[Exame do Animal]
+    Atendimento --> Receita[Prescrição de Receita]
+    Atendimento --> Prontuario[Atualização de Prontuário]
+
+    Comercio --> Produtos[Roupas e Brinquedos]
+    Comercio --> Pagamento[Pagamento]
+
+    BanhoETosa --> MarcarBanho[Agendar Banho]
+    BanhoETosa --> MarcarTosa[Agendar Tosa]
+
+    Historico --> ConsultarHistorico[Consultar Histórico]
+    Historico --> DetalhesConsulta[Detalhes da Consulta]
+```
+
 # 11. Pilha tecnológica
+
+```mermaid
+graph TB
+    Frontend[Frontend] --> Backend[Backend]
+    Backend --> Database[Database]
+    Backend --> RFID[RFID Scanner API]
+    Backend --> AuthService[Serviço de Autenticação]
+    Backend --> Scheduler[Gerenciador de Agendamento]
+    Backend --> ProntuarioService[Serviço de Prontuário]
+    Backend --> PaymentGateway[Gateway de Pagamento]
+
+    Frontend --> Web["Web Application (React/Angular)"]
+    Frontend --> Mobile["Mobile App (Flutter/React Native)"]
+
+    Database --> RelationalDB[(PostgreSQL/MySQL)]
+    Database --> NoSQLDB[(MongoDB para histórico e prontuários)]
+    Database --> Cache[Redis para Cache de Dados]
+
+    RFID --> Hardware[RFID Scanner Hardware]
+    AuthService --> OAuth[OAuth/JWT]
+    PaymentGateway --> ExternalAPI[API de Processamento de Pagamentos]
+
+    Scheduler --> NotificationService[Serviço de Notificações]
+    NotificationService --> Email[Email]
+    NotificationService --> SMS[SMS]
+    NotificationService --> Push[Push Notifications]
+```
 
 # 12. Requisitos de sistema
 
