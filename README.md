@@ -10,6 +10,12 @@
 - [5. Diagrama de classe](#5-diagrama-de-classe)
 - [6. Casos de uso](#6-casos-de-uso)
   - [6.1. Histórias de usuário](#61-histórias-de-usuário)
+    - [1. Sistema de Gestão de Estoque de Produtos para Pet](#1-sistema-de-gestão-de-estoque-de-produtos-para-pet)
+    - [2. Plataforma de E-commerce para Petshop](#2-plataforma-de-e-commerce-para-petshop)
+    - [3. Gerenciamento de Serviços de Banho e Tosa](#3-gerenciamento-de-serviços-de-banho-e-tosa)
+    - [4. Aplicativo de Controle Financeiro para Petshops](#4-aplicativo-de-controle-financeiro-para-petshops)
+    - [5. Sistema de Agendamento de Consultas Veterinárias](#5-sistema-de-agendamento-de-consultas-veterinárias)
+    - [6. Ferramenta de Automação de Agendamentos de Serviços Pet](#6-ferramenta-de-automação-de-agendamentos-de-serviços-pet)
 - [7. Diagrama de Componentes](#7-diagrama-de-componentes)
 - [8. Diagrama de Implantação](#8-diagrama-de-implantação)
 - [9. Protótipo de telas](#9-protótipo-de-telas)
@@ -262,9 +268,44 @@ classDiagram
 
 ## 6.1. Histórias de usuário
 
+### 1. Sistema de Gestão de Estoque de Produtos para Pet
+**Como** um administrador,  
+**quero** gerenciar o estoque de produtos,  
+**para** que eu possa controlar o nível de produtos disponíveis e evitar a falta ou excesso de itens.
+
+### 2. Plataforma de E-commerce para Petshop
+**Como** um cliente,  
+**quero** comprar produtos para pets online,  
+**para** que eu possa adquirir itens de forma conveniente sem precisar ir à loja física.
+
+### 3. Gerenciamento de Serviços de Banho e Tosa
+**Como** um funcionário,  
+**quero** gerenciar os agendamentos de banho e tosa,  
+**para** que eu possa organizar o fluxo de trabalho e atender os pets de forma eficiente.
+
+### 4. Aplicativo de Controle Financeiro para Petshops
+**Como** um gerente financeiro,  
+**quero** acompanhar todas as transações financeiras do petshop,  
+**para** que eu possa garantir a saúde financeira do negócio.
+
+### 5. Sistema de Agendamento de Consultas Veterinárias
+**Como** um cliente,  
+**quero** agendar consultas veterinárias online,  
+**para** que eu possa garantir o atendimento ao meu pet no horário mais conveniente.
+
+### 6. Ferramenta de Automação de Agendamentos de Serviços Pet
+**Como** um administrador,  
+**quero** automatizar os agendamentos de serviços de banho, tosa e consultas,  
+**para** reduzir o tempo de gestão e evitar erros de agendamento.
+
+
 # 7. Diagrama de Componentes
 
+https://github.com/NatanBenites62/natan_benites/blob/main/aaa.drawio.png
+
 # 8. Diagrama de Implantação
+
+https://github.com/NatanBenites62/natan_benites/blob/main/bbb.drawio.png
 
 # 9. Protótipo de telas
 
