@@ -447,7 +447,6 @@ Formalização do pedido; Cliente não dá sugestões a par da "beleza" da tela;
 CREATE DATABASE ClinicaVeterinaria;
 USE ClinicaVeterinaria;
 
--- Tabela de Clientes
 CREATE TABLE Clientes (
     ClienteID INT AUTO_INCREMENT PRIMARY KEY,
     Nome VARCHAR(100) NOT NULL,
@@ -456,7 +455,6 @@ CREATE TABLE Clientes (
     Endereco VARCHAR(255)
 );
 
--- Tabela de Animais
 CREATE TABLE Animais (
     AnimalID INT AUTO_INCREMENT PRIMARY KEY,
     Nome VARCHAR(100) NOT NULL,
@@ -470,14 +468,12 @@ CREATE TABLE Animais (
     FOREIGN KEY (ClienteID) REFERENCES Clientes(ClienteID)
 );
 
--- Tabela de Veterinários
 CREATE TABLE Veterinarios (
     VeterinarioID INT AUTO_INCREMENT PRIMARY KEY,
     Nome VARCHAR(100) NOT NULL,
     Especialidade VARCHAR(100)
 );
 
--- Tabela de Agendas
 CREATE TABLE Agendas (
     AgendaID INT AUTO_INCREMENT PRIMARY KEY,
     Data DATE NOT NULL,
@@ -488,7 +484,6 @@ CREATE TABLE Agendas (
     FOREIGN KEY (VeterinarioID) REFERENCES Veterinarios(VeterinarioID)
 );
 
--- Tabela de Atendimentos
 CREATE TABLE Atendimentos (
     AtendimentoID INT AUTO_INCREMENT PRIMARY KEY,
     Data DATE NOT NULL,
@@ -501,7 +496,6 @@ CREATE TABLE Atendimentos (
     FOREIGN KEY (VeterinarioID) REFERENCES Veterinarios(VeterinarioID)
 );
 
--- Tabela de Prontuários
 CREATE TABLE Prontuarios (
     ProntuarioID INT AUTO_INCREMENT PRIMARY KEY,
     AnimalID INT,
@@ -513,7 +507,6 @@ CREATE TABLE Prontuarios (
     FOREIGN KEY (VeterinarioID) REFERENCES Veterinarios(VeterinarioID)
 );
 
--- Tabela de Histórico de Visitas
 CREATE TABLE HistoricoVisitas (
     HistoricoID INT AUTO_INCREMENT PRIMARY KEY,
     AnimalID INT,
@@ -522,7 +515,6 @@ CREATE TABLE HistoricoVisitas (
     FOREIGN KEY (AnimalID) REFERENCES Animais(AnimalID)
 );
 
--- Tabela de Produtos (para roupas e brinquedos)
 CREATE TABLE Produtos (
     ProdutoID INT AUTO_INCREMENT PRIMARY KEY,
     Nome VARCHAR(100) NOT NULL,
@@ -531,7 +523,6 @@ CREATE TABLE Produtos (
     Estoque INT NOT NULL
 );
 
--- Tabela de Banho e Tosa
 CREATE TABLE BanhoTosa (
     BanhoTosaID INT AUTO_INCREMENT PRIMARY KEY,
     AnimalID INT,
@@ -541,7 +532,6 @@ CREATE TABLE BanhoTosa (
     FOREIGN KEY (AnimalID) REFERENCES Animais(AnimalID)
 );
 
--- Tabela de Compras de Produtos
 CREATE TABLE Compras (
     CompraID INT AUTO_INCREMENT PRIMARY KEY,
     ClienteID INT,
@@ -553,7 +543,6 @@ CREATE TABLE Compras (
     FOREIGN KEY (ProdutoID) REFERENCES Produtos(ProdutoID)
 );
 
--- Tabela de Receita Geral
 CREATE TABLE ReceitaGeral (
     ReceitaID INT AUTO_INCREMENT PRIMARY KEY,
     ClienteID INT,
